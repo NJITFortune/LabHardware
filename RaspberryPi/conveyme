@@ -1,0 +1,17 @@
+#/bin/bash
+
+# Simple script to capture images from the Arducam on a Raspberry Pi
+
+cd /home/waponi/Pictures
+
+dirnam=`date +%Y%m%d%H%M`
+mkdir $dirnam
+
+cd $dirnam
+
+	# 20 sec interval for 5 minutes (300 secs) subtract one interval to avoid overlap 
+/usr/local/bin/libcamera-still -n --timelapse 20000 -t 280000 --autofocus --datetime 
+
+	# 20 sec interval for 3600 secs (1 hr)
+# /usr/local/bin/libcamera-still -n --timelapse 20000 -t 36000000 --autofocus --datetime 
+
