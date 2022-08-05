@@ -1,1 +1,4 @@
-#*/5 * * * * /home/waponi/bin/conveyme &
+# */5 * * * * /home/waponi/bin/conveyme &
+# */10 * * * * /home/waponi/bin/conveyme &
+# */5 * * * * /home/esf/bin/conveyme &
+*/10 * * * * /home/esf/bin/conveyme &
