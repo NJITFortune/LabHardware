@@ -1,21 +1,28 @@
 #!/usr/bin/python
 
+# Import libraries
 import RPi.GPIO as GPIO
 from time import sleep
 
+# Set up pins for latching relay
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(22, GPIO.OUT)
 GPIO.setup(27, GPIO.OUT)
 
+# Pin 27 turns the device on
 GPIO.output(27, 1)
 sleep(0.1)
 GPIO.output(27, 0)
 
-sleep(5)
+# Set the sleep time to match conveyor speed
+sleep(45) 
 
+# Pin 22 turns the device off
 GPIO.output(22, 1)
 sleep(0.1)
 GPIO.output(22, 0)
 
-GPIO.cleanup()
+# Reset the pins
+GPIO.cleanup(22)
+GPIO.cleanup(27)
 
