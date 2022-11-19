@@ -1,0 +1,22 @@
+#!/usr/bin/python
+
+# Import libraries
+import RPi.GPIO as GPIO
+from time import sleep
+
+# Set mode and pin on RPI for non-latching relay
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(27, GPIO.OUT)
+
+# Set the pin to high - turn on device 
+GPIO.output(27, 1)
+
+# Wait the desired amount of time for conveyor
+sleep(45)
+
+# Set the pin to low - turn off device
+GPIO.output(27, 0)
+
+# Reset the system to avoid errors
+GPIO.cleanup(27)
+

@@ -1,0 +1,15 @@
+#/bin/bash
+
+# Simple script to capture an image from the Arducam 16MP on a Raspberry Pi
+# Places the image in a dated subfolder in the Pictures directory
+
+cd /home/waponi/Pictures
+
+dirnam=`date +%Y%m%d%H%M`
+
+[ ! -d $dirnam ] && mkdir $dirnam
+
+cd $dirnam
+
+/usr/local/bin/libcamera-still -n --autofocus --datetime 
+

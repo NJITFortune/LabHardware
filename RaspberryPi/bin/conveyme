@@ -2,7 +2,7 @@
 
 # Simple script to capture images from the Arducam on a Raspberry Pi
 
-cd ~/Pictures
+cd /home/waponi/Pictures
 # cd /home/esf/Pictures
 
 dirnam=`date +%Y%m%d%H%M`
