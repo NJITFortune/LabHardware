@@ -1,0 +1,4 @@
+*/5 * * * * /home/waponi/bin/takeWaponiImage &
+*/6 * * * * /home/waponi/bin/treadlatch &
+*/8 * * * * /home/waponi/bin/takeWaponiImage &
+
