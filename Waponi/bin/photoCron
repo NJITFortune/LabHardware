@@ -1,4 +1,4 @@
-*/5 * * * * /home/waponi/bin/takeWaponiImage &
-*/6 * * * * /home/waponi/bin/treadlatch &
-*/8 * * * * /home/waponi/bin/takeWaponiImage &
+5,10,15,20,25,30,35,40,45,50,55 * * * * /home/waponi/bin/takeWaponiImage &
+6,11,16,21,26,31,36,41,46,51,56 * * * * /home/waponi/bin/treadlatch &
+8,13,18,23,28,33,38,43,48,53,58 * * * * /home/waponi/bin/takeWaponiImage &
 
