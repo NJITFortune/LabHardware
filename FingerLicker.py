@@ -156,6 +156,6 @@ while True:
     time.sleep(0.05)
     
     if cnt == 3:
-        time.sleep(random.randint(1, 3))
+        time.sleep(random.randint(1, 2))
         cnt = 0
     
