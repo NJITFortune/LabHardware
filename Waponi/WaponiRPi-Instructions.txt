@@ -49,4 +49,15 @@ DEPLOYMENT INSTRUCTIONS
 
 LIST OF CONTROL FILES
 	autoFocus.sh		Takes a picture using autofocus
-	
+	LepiLEDoff.py		Turns off the LepiLED via latching relay
+	LepiLEDon.py		Turns on the LepiLED via latching relay
+	manualFocus.sh		Takes a picture using manual focus
+	MKDirs.sh		Creates the directory structure for capturing phots in ~/Pictures
+	PaneLightsOff.py	Turns off the Panel LED via latching relay
+	PaneLightsOn.py		Turns on the Panel LED via latching relay
+	startTest.sh		Cycles the relays and shows a preview from the cameras
+	takePhotos.sh		This takes manual and autofocus pictures from each camera
+	testManuaCamera.sh	Use to adjust the lens-position for manual focus
+	treadlatch.py		A leftover from the first generation LimeLight - no longer relevant
+
+
