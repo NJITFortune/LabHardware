@@ -22,3 +22,30 @@ Installing control files:
 	Download rpi1bin.tar to home directory
 	command line: tar -xf rpi1bin.tar
 
+SETUP FOR DEPLOYMENT
+	Plug in Monitor, USB Keyboard, Power
+	Check time and date
+		$ date
+	Check that light control and cameras are functioning
+		$ ~/bin/startTest.sh
+			Both the Panel lights and the LepiLED lights should turn on and off
+			The screen should show a live feed from all four cameras
+	Check and adjust the manual focus
+		$ testManualCamera.sh X Y [where X is the camera number [0-3] and Y is the focal distance [reals ~10]
+			A 10s duration live video feed from the camera will appear.
+			Edit manualFocus.sh to adjust lens-position			
+	Initialize the crontab file
+		Detailed instructions in crontabUsage.txt
+	Check the available disk space
+		$ df -h
+	Shutdown the RPi
+		$ /sbin/shutdown -h now
+		
+DEPLOYMENT INSTRUCTIONS
+	Plug in power [no other connections]
+	Turn on power
+
+
+LIST OF CONTROL FILES
+	autoFocus.sh		Takes a picture using autofocus
+	
