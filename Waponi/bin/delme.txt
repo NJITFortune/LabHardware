@@ -1,0 +1,17 @@
+#!/usr/bin/python
+
+# Import libraries
+import RPi.GPIO as GPIO
+import time
+import datetime
+from time import sleep
+
+nowdate = datetime.datetime.now()
+nowsec = round(time.time())
+
+outfile = open("/home/arducam/rpi1.csv", "a")
+curtim = nowdate.strftime("RPi1, PanelOn, %a %d %b %H:%M:%S %Y, ") 
+newlin = " \n"
+outfile.write(curtim + str(nowsec) + newlin)
+outfile.close()
+
