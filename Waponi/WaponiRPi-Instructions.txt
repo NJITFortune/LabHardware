@@ -1,0 +1,24 @@
+NOTES FOR SETUP
+
+Raspberry Pi OS:
+	Raspberry Pi OS LITE (32-BIT) Bullseye Release 2023-02-21
+	Enable I2C, Glamour, GL
+	Install fbi
+	Username: arducam Password: [printed on device]
+
+Real Time Clock (RTC):
+	https://learn.adafruit.com/adding-a-real-time-clock-to-raspberry-pi/set-rtc-time
+
+Arducam 16MP Quad Hat:
+	https://docs.arducam.com/Raspberry-Pi-Camera/Multi-Camera-CamArray/quick-start/#install-the-driver-and-access-the-pivariety-multi-camera
+
+	# Last step to install the driver, use this:
+	sudo ./install_pivariety_pkgs.sh -d
+
+FeatherWing Latching Relay:
+	https://www.adafruit.com/product/2923?gclid=Cj0KCQjwi46iBhDyARIsAE3nVraQfDAtLXV1YQMl1FGSUDiWf9zIE2ej7pAWs5R1lX37vrZG3yDbMkgaAszKEALw_wcB
+
+Installing control files:
+	Download rpi1bin.tar to home directory
+	command line: tar -xf rpi1bin.tar
+
