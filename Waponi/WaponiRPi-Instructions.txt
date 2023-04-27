@@ -11,7 +11,8 @@ Real Time Clock (RTC):
 
 Arducam 16MP Quad Hat:
 	https://docs.arducam.com/Raspberry-Pi-Camera/Multi-Camera-CamArray/quick-start/#install-the-driver-and-access-the-pivariety-multi-camera
-
+	https://forum.arducam.com/t/imx519-quad-hat-mode-switching-and-faq/2399/4
+	
 	# Last step to install the driver, use this:
 	sudo ./install_pivariety_pkgs.sh -d
 
