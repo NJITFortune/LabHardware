@@ -1,0 +1,32 @@
+---------------------------------------
+The crontab editor has been set to vim.
+
+To exit and save, :w!
+To quit without save :q!
+Use r to replace a character
+Use x to delete a character
+Use i to start inserting and ESC to stop
+---------------------------------------
+
+0 18 * * * /home/arducam/bin/LepiLEDon.py
+This turns on the LepiLED at 6pm (18). There is currently no 
+redundancy - if the LepiLED does not turn on at 6pm, it doesn't
+turn on for that day. The assumption is that the LimeLight will
+be deployed during daylight hours earlier.
+
+*/10 19-24 * * * /home/arducam/bin/takePhotos.sh
+*/10 0-6 * * * /home/arducam/bin/takePhotos.sh
+We take photos every 10 minutes from 7pm until 6 am. There are two
+cron entries as we go past midnight. The script turns on the lights
+and then cycles through each camera, taking both an autofocus and
+fixed focus image for each.
+
+*/11 0-6 * * * /home/arducam/bin/PaneLightsOff.py
+*/11 19-24 * * * /home/arducam/bin/PaneLightsOff.py
+This turns off the Panel lights every 11 minutes to save energy. 
+This could have been (and maybe should be) included in the 
+takePhotos.sh script.
+
+0 5 * * * /home/arducam/bin/LepiLEDoff.py
+This turns of the LepiLED at 5am.
+
