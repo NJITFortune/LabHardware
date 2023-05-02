@@ -8,6 +8,6 @@ TFMINI_FRAME_RATE = 300 # in Hz
 TFMINI_UART_PORT = '/dev/ttyAMA0' # change to the appropriate one
 # SD card configs
 BATCH_SIZE = 5000 # How many data lines to write to SD card at a time
-
+NUM_SAMPLE = 10000
 
 DEBUG = True
