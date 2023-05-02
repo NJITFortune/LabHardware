@@ -1,6 +1,6 @@
-*/10 0-6 * * * /home/arducam/bin/takePhotos.sh
-*/11 0-6 * * * /home/arducam/bin/PaneLightsOff.py
+0,10,20,30,40,50 0-6 * * * /home/arducam/bin/takePhotos.sh
+1,11,21,31,41,51 0-6 * * * /home/arducam/bin/PaneLightsOff.py
 0 5 * * * /home/arducam/bin/LepiLEDoff.py
 0 18 * * * /home/arducam/bin/LepiLEDon.py
-*/10 19-24 * * * /home/arducam/bin/takePhotos.sh
-*/11 19-24 * * * /home/arducam/bin/PaneLightsOff.py
+0,10,20,30,40,50 19-24 * * * /home/arducam/bin/takePhotos.sh
+1,11,21,31,41,51 19-24 * * * /home/arducam/bin/PaneLightsOff.py
