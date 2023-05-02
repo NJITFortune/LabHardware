@@ -12,6 +12,7 @@ from configs import (
     TFMINI_FRAME_RATE,
     TFMINI_TIMEOUT,
     TFMINI_UART_PORT,
+    NUM_SAMPLES
 )
 
 distance:str = 0
@@ -67,20 +68,23 @@ async def uart_client():
         await asyncio.sleep(0) # Release the interpreter 
 
 
-
 async def log():
     print('Creating logger')
+    num_samples=NUM_SAMPLES
     logger = Logger(
-        batch_size=BATCH_SIZE, # How many data lines to save in memory before dumping them to the file
-        headers= "timestamp,distance,strength", # CSV file headers - if None, no headers will be added
-        file_name=create_filename(), # if None - will ge generated a 5 numbers random file name
-        path=os.path.join(os.getcwd(),'data') # Please make sure that you have 'data' folder in your projects folder
-        )  # creating logger with appropriate headers
-    while True:
-        loop_time = time.monotonic_ns() # Machine time in nanoseconds
-        logger.log_data(f'{loop_time},{distance},{strength}') # Adding data to memory
-        await asyncio.sleep(LOOP_SLEEP_TIME_INTERVAL) # waiting for N seconds
-
+        batch_size=BATCH_SIZE,
+        headers= "timestamp,distance,strength",
+        file_name=create_filename(),
+        path=os.path.join(os.getcwd(),'data')
+        )
+    sample_count = 0  # initialize the sample count
+    while sample_count < num_samples:  # continue logging data until the desired number of samples have been logged
+        loop_time = time.monotonic_ns()
+        logger.log_data(f'{loop_time},{distance},{strength}')
+        sample_count += 1  # increment the sample count
+        await asyncio.sleep(LOOP_SLEEP_TIME_INTERVAL)
+    print(f'{num_samples} samples recorded. Stopping logging.')
+    
 
 async def main():
     print('TFmini-plus data logger')
