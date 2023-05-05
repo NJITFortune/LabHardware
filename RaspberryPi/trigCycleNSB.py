@@ -35,3 +35,21 @@ while True:
     # Wait for the sine wave to finish playing
     while audio.playing:
         pass
+
+    
+# import machine
+# import math
+# 
+# # Set up PWM on GP26 with a frequency of 1kHz
+# pwm = machine.PWM(machine.Pin(26))
+# pwm.freq(1000)
+#
+# # Generate and output sine wave samples
+# while True:
+#     for i in range(360):
+#         # Calculate sine wave value for current angle
+#         sin_value = math.sin(math.radians(i))
+#         # Convert sine wave value from -1 to 1 to a 16-bit PWM duty cycle value
+#         duty_cycle = int(sin_value * 32767 + 32767)
+#         # Output duty cycle to PWM
+#         pwm.duty_u16(duty_cycle)
