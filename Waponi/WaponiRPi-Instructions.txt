@@ -61,3 +61,10 @@ LIST OF CONTROL FILES
 	treadlatch.py		A leftover from the first generation LimeLight - no longer relevant
 
 
+
+
+POWER CONSIDERATIONS
+
+	https://blues.io/blog/tips-tricks-optimizing-raspberry-pi-power/
+	https://www.jeffgeerling.com/blog/2021/disabling-cores-reduce-pi-zero-2-ws-power-consumption-half
+
