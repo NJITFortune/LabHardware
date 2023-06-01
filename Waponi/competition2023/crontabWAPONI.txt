@@ -1,3 +1,5 @@
+## Take photos every 5 minutes from midnight to 6am
+*/5 0-6 * * * /home/arducam/bin/takePhotos.sh >> /home/arducam/errorlog.txt 2>&1
 ## Make sure that both lights are turned off between 5 and 6am
 20,40 5 * * * /home/arducam/bin/LepiLEDoff.sh
 21,41 5 * * * /home/arducam/bin/PaneLightOff.sh
