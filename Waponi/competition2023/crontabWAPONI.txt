@@ -1,12 +1,10 @@
-## Take photos every 10 minutes from midnight to 6am
-*/10 0-6 * * * /home/arducam/bin/takePhotos.sh >> /home/arducam/errorlog.txt 2>&1
 ## Make sure that both lights are turned off between 5 and 6am
 20,40 5 * * * /home/arducam/bin/LepiLEDoff.sh
 21,41 5 * * * /home/arducam/bin/PaneLightOff.sh
-## take a photo every 15 minutes from 7am to 6pm
-*/15 7-18 * * * /home/arducam/bin/dayPhotos.sh >> /home/arducam/errorlog.txt 2>&1
+## take a photo every 10 minutes from 7am to 6pm
+*/10 7-18 * * * /home/arducam/bin/dayPhotos.sh >> /home/arducam/errorlog.txt 2>&1
 ## Make sure that both lights are turned on between 6pm and 7pm
-20,40 18 * * * /home/arducam/bin/LepiLEDon.sh
-21,41 18 * * * /home/arducam/bin/PaneLightOn.sh
-## Take photos every 10 minutes from 7pm to midnight
-*/10 19-23 * * * /home/arducam/bin/takePhotos.sh >> /home/arducam/errorlog.txt 2>&1
+7,27 18 * * * /home/arducam/bin/LepiLEDon.sh
+8,28 18 * * * /home/arducam/bin/PaneLightOn.sh
+## Take photos every 5 minutes from 7pm to midnight
+*/5 19-23 * * * /home/arducam/bin/takePhotos.sh >> /home/arducam/errorlog.txt 2>&1
