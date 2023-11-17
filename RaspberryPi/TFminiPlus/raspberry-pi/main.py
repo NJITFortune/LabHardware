@@ -1,5 +1,5 @@
 
-print('Raspberry pi version')
+print('Raspberry pi version 1.1 Abid number of samples')
 import time
 import os
 from lib.sd_logger import Logger
