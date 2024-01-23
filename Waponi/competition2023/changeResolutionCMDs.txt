@@ -1,0 +1,5 @@
+cat takePhotos.sh | sed 's/\=2328/\=4656/g' | sed 's/\=1748/\=3496/g' > tmp.txt
+cat dayPhotos.sh | sed 's/\=2328/\=4656/g' | sed 's/\=1748/\=3496/g' > tmp.txt
+
+cat takePhotos.sh | sed 's/\=4656/\=2328/g' | sed 's/\=3496/\=1748/g' > tmp.txt
+cat dayPhotos.sh | sed 's/\=4656/\=2328/g' | sed 's/\=3496/\=1748/g' > tmp.txt
