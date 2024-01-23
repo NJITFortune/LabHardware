@@ -4,7 +4,7 @@ clear;
 speclen = 2000;
 rango = 50;
 
-[data, Fs] = audioread('~/Downloads/WaponiBraziltmp/CAMPINARANA_20231214_031200.wav');
+[data, Fs] = audioread('~/Desktop/WaponiBraziltmp/CAMPINARANA_20231214_031200.wav');
 data = data - mean(data);
 tim = 1/Fs:1/Fs:length(data)/Fs;
 
@@ -27,12 +27,12 @@ semilogy(sp.fftfreq(pspidx), sp.fftdata(pspidx), 'r.', 'MarkerSize', 16);
 semilogy(sp.fftfreq(pspidx(1)), sp.fftdata(pspidx(1)), 'g.', 'MarkerSize', 32);
 
 
-parfor j = 1:10
+for j = 10:-1:1
 
 fd(:,j) = bandpass(data,[sp.fftfreq(pspidx(j))-rango, sp.fftfreq(pspidx(j))+rango], Fs);
-%figure(j); clf
-%    subplot(211); specgram(fd,1024,Fs,[], 1000);
-%    subplot(212); plot(tim, fd); xlim([tim(1), tim(end)])
+figure(j); clf
+    subplot(211); specgram(fd(:,j),1024,Fs,[], 1000);
+    subplot(212); plot(tim, fd(:,j)); xlim([tim(1), tim(end)])
 
 end
 
@@ -52,7 +52,7 @@ i = info(aFE);
 features = extract(aFE,fd(:,3));
 
 figure(27); clf;
-subplot(211); yyaxis('right'); plot(features(:,i.shortTimeEnergy)); hold on; yyaxis('left'); plot(features(:,i.zerocrossrate))
+subplot(211); yyaxis('right'); plot(features(:,i.shortTimeEnergy)); hold on; yyaxis('left'); plot(features(:,i.spectralEntropy))
 
 subplot(212); plot(tim, fd(:,3))
 
