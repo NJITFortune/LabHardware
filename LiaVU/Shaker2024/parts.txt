@@ -1,0 +1,8 @@
+8 x Raspberry Pi Pico W[ID:5526] = $48.00
+8 x Adafruit MPU-6050 6-DoF Accel and Gyro Sensor - STEMMA QT Qwiic[ID:3886]
+= $103.60
+
+https://www.adafruit.com/product/5526
+
+https://www.adafruit.com/product/3886
+
