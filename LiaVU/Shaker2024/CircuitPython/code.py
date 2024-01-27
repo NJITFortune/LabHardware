@@ -14,12 +14,13 @@ data = open("log.csv", "a")
 data.write("X, Y, Z \n")
 runtime = 0
 
-# Collect the accerlation data
-while runtime <= 2000:
-    time.struct_time
+# Collect the acceleration data
+numCycles = 2000
+sleepTime = 0.005
+while runtime <= numCycles:
     tmpdata = ("%.2f, %.2f, %.2f" % (mpu.acceleration))
     data.write(str(tmpdata) + "\n")
-    time.sleep(0.005)
+    time.sleep(sleepTime)
     runtime = runtime + 1
 
 data.flush()

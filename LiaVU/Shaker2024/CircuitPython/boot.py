@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 
 """
-boot.py file for Pico data logging example. If pin GP0 is connected to GND when
+boot.py file for Pico data logging example. If pin GP6 is connected to GND when
 the pico starts up, make the filesystem writeable by CircuitPython.
 """
 import board
