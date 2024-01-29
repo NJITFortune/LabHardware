@@ -1,8 +1,12 @@
-%% Read Data and prep
-clear
-% [a,Fs] = audioread('/Volumes/Extreme SSD/WaponiData/Campinarana 2 canopy/Data/CAMPINARANA2_20231213_190000.wav');
-% [a,Fs] = audioread('/Volumes/Extreme SSD/WaponiData/Campinarana 2 canopy/Data/CAMPINARANA2_20231213_212000.wav');
-[a,Fs] = audioread('/Volumes/Extreme SSD/WaponiData/Campinarana 2 canopy/Data/CAMPINARANA2_20231213_230600.wav');
+function theSoundBoxer(a, Fs, filepath, filename)
+
+[~, basefilename, ~] = fileparts(filename);
+
+% %% Read Data and prep
+% clear
+% % [a,Fs] = audioread('/Volumes/Extreme SSD/WaponiData/Campinarana 2 canopy/Data/CAMPINARANA2_20231213_190000.wav');
+% % [a,Fs] = audioread('/Volumes/Extreme SSD/WaponiData/Campinarana 2 canopy/Data/CAMPINARANA2_20231213_212000.wav');
+% [a,Fs] = audioread('/Volumes/Extreme SSD/WaponiData/Campinarana 2 canopy/Data/CAMPINARANA2_20231213_230600.wav');
 
 cutOffFreq = 3000;
 
@@ -62,7 +66,7 @@ for j = length(startTim):-1:1
     if ~isempty(find(divPwr(ff,j) > multiThresh, 1))
         aboveThreshIDXs = find(divPwr(ff,j) > multiThresh);
         if length(aboveThreshIDXs) > numWindowsAboveThresh
-            length(aboveThreshIDXs)
+            length(aboveThreshIDXs);
             listofwinners(end+1) = j;            
             freqRange{length(listofwinners)} = [baseFreq(aboveThreshIDXs(1)), baseFreq(aboveThreshIDXs(end))];  
         end
@@ -76,7 +80,8 @@ freqRange = flip(freqRange);
 %% Review
 
 figure(2); clf; 
-    specgram(rc,512,fFs,[],500); colormap('HOT'); clim([-40 10]); ylim([0 5000]);
+    set(gcf, "Position", [500 700 1400 600]);
+    specgram(rc, 1024, fFs, [], 1000); colormap('HOT'); clim([-40 10]); ylim([0 3500]);
     hold on; 
     % for j=1:length(freqRange) 
     %     plot([startTim(listofwinners(j)) startTim(listofwinners(j))], [freqRange{j}], 'g', 'LineWidth', 4); 
@@ -115,22 +120,37 @@ for j = 1:length(box)
         xmin = max([0, box(j).startTim - timPad]);
         xmax = min([tim(end), box(j).endTim + timPad]);
 
-    figure(2); plot([xmin, xmin, xmax, xmax, xmin], [ymin ymax ymax ymin ymin], 'm', 'LineWidth', 3);
 
+    figure(2); 
+        plot([xmin, xmin, xmax, xmax, xmin], [ymin ymax ymax ymin ymin], 'm', 'LineWidth', 3);
+        text(xmin,ymax,num2str(j), "FontSize", 14, "Color", "White", "FontWeight","bold");
 
 end
 
-
+    mkdir(fullfile(filepath, "/cutfiles/", basefilename));
+    fprintf("     Making dir: %s \n", fullfile(filepath, "/cutfiles/", basefilename));
+    drawnow; saveas(gcf,fullfile(filepath, "/cutfiles", basefilename, strcat("/", basefilename, ".jpg")));
 
 %% Go for it?
 
-yn = input('Yes (1) or No (anything else)? \n');
+% yn = input('Yes (1) or No (anything else)? \n');
+% 
+% if yn == 1
 
-if yn == 1
+    % Cut out the parts from the file and save them.
 
-    % Cut out the parts from the
+    for j = 1:length(box)
 
+       xmin = max([0, box(j).startTim - timPad]);
+       xmax = min([tim(end), box(j).endTim + timPad]);
 
+       newfullpathfile = fullfile(filepath, "/cutfiles", basefilename, strcat("/", basefilename, "_", num2str(xmin*10), "-", num2str(xmax*10), ".wav"));
+       
+       if ~isempty(rc(tim > xmin & tim < xmax))
+           audiowrite(newfullpathfile, rc(tim > xmin & tim < xmax), fFs);
+       end
 
-end
+    end
+
+% end
 
