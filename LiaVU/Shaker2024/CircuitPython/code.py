@@ -15,8 +15,8 @@ led = digitalio.DigitalInOut(board.LED)
 led.direction = digitalio.Direction.OUTPUT
 
 # Open the data file for append and write header
-data = open("log.csv", "a")
-data.write("T, X, Y, Z \n")
+d = open("log.csv", "a")
+d.write("T, X, Y, Z \n")
 runtime = 0
 
 # Countdown blink, coded the hard (stupid) way
@@ -38,15 +38,15 @@ led.value = False
 time.sleep(0.5)
 led.value = True
 
+print("Starting data collection... \n")
 # Collect the acceleration data
 numCycles = 2000
-sleepTime = 0.008
 while numCycles > 0:
-    tmpdata = ("%.2f, %.2f, %.2f" % (mpu.acceleration))
-    data.write(str(time.monotonic_ns()) + str(tmpdata) + "\n")
-    time.sleep(sleepTime)
+    d.write("%i" % time.monotonic_ns() + ", %.2f, %.2f, %.2f \n" % (mpu.acceleration))
+    time.sleep(0.002)
     numCycles = numCycles - 1
 
+print("Data collection complete. \n")
 led.value = False
-data.flush()
-data.close()
+d.flush()
+d.close()
