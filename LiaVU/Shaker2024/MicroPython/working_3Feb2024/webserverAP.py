@@ -1,5 +1,4 @@
-# This is a webserver that allows data to be read
-# from the Pico W
+# This is a webserver that allows data to be read from a Pico W
 # The password is 12345678
 # The SSID should be customized for each device
 import rp2
@@ -9,9 +8,15 @@ import socket
 import utime
 import uos
 
+# Build the index.html file
+
+
+# Set up the network 
 ap = network.WLAN(network.AP_IF)
-# BE SURE TO CONFIGURE EACH DEVICE TO HAVE A UNIQUE SSID
+
+### BE SURE TO CONFIGURE EACH DEVICE TO HAVE A UNIQUE SSID
 ap.config(essid="LiaVU_AP1")
+
 ap.config(password="12345678")
 ap.active(True)
 
