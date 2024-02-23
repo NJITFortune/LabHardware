@@ -24,6 +24,13 @@ ap.active(True)
 led = machine.Pin('LED', machine.Pin.OUT)
 led.off()
 
+# Tell the user we are on webserver by rapid blinking of LED
+for _ in range(20):
+    led.on()
+    utime.sleep_ms(100)
+    led.off()
+    utime.sleep_ms(100)
+
 def executeDEL():
     # Delete CSV files
     import uos
