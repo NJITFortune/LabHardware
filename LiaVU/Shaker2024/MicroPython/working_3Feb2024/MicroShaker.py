@@ -29,9 +29,9 @@ numCSVfiles = countCSVfiles()
 
 if numCSVfiles > 8:
     print('Too many files on device')
-    for _ in range(20):
+    for _ in range(100):
         led.on()
-        utime.sleep_ms(100)
+        utime.sleep_ms(50)
         led.off()
         utime.sleep_ms(100)
     sys.exit()
@@ -65,7 +65,8 @@ print("Starting data collection... \n")
 # Collect the acceleration data
 numCycles = 2500
 while numCycles > 0:
-    d.write("%i" % utime.time_ns() + ", %.2f, %.2f, %.2f \n" % (mpu.readacceldata()))
+#    d.write("%i" % utime.time_ns() + ", %.2f, %.2f, %.2f \n" % (mpu.readacceldata()))
+    d.write("%i" % utime.ticks_ms() + ",\t %.2f,\t %.2f,\t %.2f \n" % (mpu.readacceldata()))
     utime.sleep_ms(2)
     numCycles = numCycles - 1
 

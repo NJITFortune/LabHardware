@@ -29,7 +29,7 @@ for _ in range(20):
     led.on()
     utime.sleep_ms(100)
     led.off()
-    utime.sleep_ms(100)
+    utime.sleep_ms(50)
 
 def executeDEL():
     # Delete CSV files
