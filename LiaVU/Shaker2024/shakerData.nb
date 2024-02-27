@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     20914,        602]
-NotebookOptionsPosition[     18973,        558]
-NotebookOutlinePosition[     19371,        574]
-CellTagsIndexPosition[     19328,        571]
+NotebookDataLength[     20900,        598]
+NotebookOptionsPosition[     18990,        556]
+NotebookOutlinePosition[     19390,        572]
+CellTagsIndexPosition[     19347,        569]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -490,7 +490,15 @@ Cell["Calculate and plot the zero crossing data ", "Section",
   3.917738298677614*^9}},ExpressionUUID->"9def3a75-eb9f-42a7-ba9b-\
 a996f0c2e04a"],
 
-Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"offset", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"zcData", " ", "=", " ", 
+   RowBox[{"filtz", "+", "offset"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.9179922336542683`*^9, 
+  3.917992258275894*^9}},ExpressionUUID->"aa2dcce1-f8fa-4856-9680-\
+09b00ca43b99"],
 
 Cell[BoxData[{
  RowBox[{
@@ -500,8 +508,8 @@ Cell[BoxData[{
      RowBox[{"Position", "[", 
       RowBox[{
        RowBox[{"Differences", "[", 
-        RowBox[{"Sign", "[", "filtZ", "]"}], "]"}], ",", "2"}], "]"}]}]}], 
-   ";"}], "\n", "\[IndentingNewLine]", 
+        RowBox[{"Sign", "[", "zcData", "]"}], "]"}], ",", "2"}], "]"}]}]}], 
+   ";"}], "\[IndentingNewLine]", "\n", 
   RowBox[{"(*", 
    RowBox[{
    "Calculate", " ", "instantaneous", " ", "frequency", " ", "based", " ", 
@@ -541,23 +549,13 @@ Cell[BoxData[{
    3.917739199795547*^9, 3.917739201294545*^9}, {3.917773708900866*^9, 
    3.917773711378515*^9}, {3.917858613931149*^9, 3.917858657913979*^9}, {
    3.917858711280456*^9, 3.9178587761140327`*^9}, 3.917858824419759*^9, {
-   3.917858961957512*^9, 3.91785906944433*^9}},
- CellLabel->
-  "In[111]:=",ExpressionUUID->"f8c93706-479e-4a25-aa1b-d43451acd559"],
-
-Cell[BoxData["\<\"The mean instantaneous frequency is 10.564 Hz.\"\>"], \
-"Print",
- CellChangeTimes->{{3.917859000363697*^9, 3.917859069905088*^9}, 
-   3.917981700508006*^9},
- CellLabel->
-  "During evaluation of \
-In[111]:=",ExpressionUUID->"a5c6423a-16c9-4c18-95bf-dde0358b9cb1"]
-}, Open  ]]
+   3.917858961957512*^9, 3.91785906944433*^9}, 3.9179922638164167`*^9},
+ CellLabel->"",ExpressionUUID->"f8c93706-479e-4a25-aa1b-d43451acd559"]
 }, Open  ]]
 }, Open  ]]
 },
 WindowSize->{1440, 847},
-WindowMargins->{{Automatic, 78}, {60, Automatic}},
+WindowMargins->{{-14, Automatic}, {Automatic, 540}},
 FrontEndVersion->"14.0 for Mac OS X ARM (64-bit) (December 12, 2023)",
 StyleDefinitions->"Default.nb",
 ExpressionUUID->"aaed1146-debe-4559-9e7d-ed3d1b8e01e3"
@@ -598,10 +596,8 @@ Cell[12668, 375, 3550, 107, 262, "Input",ExpressionUUID->"213ecee1-bead-40a4-be5
 }, Open  ]],
 Cell[CellGroupData[{
 Cell[16255, 487, 187, 3, 67, "Section",ExpressionUUID->"9def3a75-eb9f-42a7-ba9b-a996f0c2e04a"],
-Cell[CellGroupData[{
-Cell[16467, 494, 2183, 51, 178, "Input",ExpressionUUID->"f8c93706-479e-4a25-aa1b-d43451acd559"],
-Cell[18653, 547, 280, 6, 24, "Print",ExpressionUUID->"a5c6423a-16c9-4c18-95bf-dde0358b9cb1"]
-}, Open  ]]
+Cell[16445, 492, 318, 8, 52, "Input",ExpressionUUID->"aa2dcce1-f8fa-4856-9680-09b00ca43b99"],
+Cell[16766, 502, 2196, 50, 178, "Input",ExpressionUUID->"f8c93706-479e-4a25-aa1b-d43451acd559"]
 }, Open  ]]
 }, Open  ]]
 }
