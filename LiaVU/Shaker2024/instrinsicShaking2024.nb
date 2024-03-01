@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     18353,        533]
-NotebookOptionsPosition[     16761,        496]
-NotebookOutlinePosition[     17161,        512]
-CellTagsIndexPosition[     17118,        509]
+NotebookDataLength[     21219,        592]
+NotebookOptionsPosition[     19218,        549]
+NotebookOutlinePosition[     19614,        565]
+CellTagsIndexPosition[     19571,        562]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -25,6 +25,41 @@ Cell["Intrinsic shaking analysis", "Title",
    3.9180480950875587`*^9, 3.918048101029911*^9}, 
    3.9180484875982723`*^9},ExpressionUUID->"b5225925-e106-4a46-9071-\
 abc41fe7a3f4"],
+
+Cell["\<\
+Everybody\[CloseCurlyQuote]s body is in constant motion. In addition to \
+voluntary movements used to achieve behavioral goals, we are constantly \
+producing small amplitude, involuntary movements. Such movements are \
+associated with different physiological processes, including the changes in \
+pressure with every heartbeat, the push-and-pull of antagonistic muscles, and \
+active sensing - movements made for the purpose of shaping  sensory \
+information. 
+
+This lab exercise measures some of these small movements. 
+
+You will hold the shaker wand in your hand with your arm in three different \
+positions, and with two levels of exertion. While standing, the arm positions \
+are 1) along your side hanging down in a normal resting position, 2) extended \
+directly forward from the shoulder, and 3) extended to the side directly from \
+the shoulder.  For positions 2 and 3, you will make two measurements, once \
+while you hold your arm comfortably in place and once while making strong \
+isometric contractions. For many people, the strong isometric contractions \
+will result in some visible shaking of the arm. For people with essential \
+tremor or Parkinson\[CloseCurlyQuote]s, there may be visible shaking for \
+every measurement.
+
+Each student should take five 10-second measurements - 1) arm down, 2) arm \
+forward relaxed, 3) arm forward clenched, 4) arm sideward relaxed, 5) arm \
+sideward clenched.
+
+Please report the frequency and amplitude of the peak in the Fourier spectrum \
+(hover the mouse over the data to show values). Also please describe the \
+shape of the frequency distribution.\
+\>", "Text",
+ CellChangeTimes->{{3.918152543266177*^9, 3.918153150536603*^9}, {
+  3.918153185928396*^9, 3.918153398908991*^9}, {3.918155419874528*^9, 
+  3.918155514361475*^9}},ExpressionUUID->"e98846ae-c3bb-4773-8220-\
+6cc023727cd5"],
 
 Cell[CellGroupData[{
 
@@ -232,7 +267,7 @@ Cell[BoxData[{
        RowBox[{"0", ",", "10"}], "}"}], ",", 
       RowBox[{"{", 
        RowBox[{
-        RowBox[{"-", "2.1"}], ",", "2.1"}], "}"}]}], "}"}]}], ",", 
+        RowBox[{"-", "0.75"}], ",", "0.75"}], "}"}]}], "}"}]}], ",", 
    RowBox[{"AxesLabel", "->", 
     RowBox[{"{", 
      RowBox[{"\"\<Time s\>\"", ",", "\"\<Acceleration\>\""}], "}"}]}], ",", 
@@ -253,9 +288,9 @@ Cell[BoxData[{
    3.917777379165536*^9}, {3.917857770679518*^9, 3.917857805748461*^9}, {
    3.917857913489609*^9, 3.91785791478449*^9}, {3.917857975409427*^9, 
    3.917858035205692*^9}, {3.91785808136712*^9, 3.917858139421214*^9}, {
-   3.917992592297687*^9, 3.9179925934785748`*^9}},
- CellLabel->
-  "In[370]:=",ExpressionUUID->"6ce75b95-04d6-4e61-bb40-b05114f10d70"]
+   3.917992592297687*^9, 3.9179925934785748`*^9}, {3.918155406903607*^9, 
+   3.91815540690486*^9}},ExpressionUUID->"6ce75b95-04d6-4e61-bb40-\
+b05114f10d70"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -303,6 +338,14 @@ Cell["Lowpass filter the data and plot again", "Section",
   3.918048222893236*^9}},ExpressionUUID->"55a1696e-ffbb-48c8-b877-\
 a2359f804686"],
 
+Cell["\<\
+You may need to adjust the cutoff frequency for the low-pass filter. The \
+default is 30 Hz, but you can adjust it up to 50 Hz.\
+\>", "Text",
+ CellChangeTimes->{{3.9181534474180393`*^9, 
+  3.918153527415056*^9}},ExpressionUUID->"1cd4be3c-9893-405d-abe4-\
+6145d186bb8c"],
+
 Cell[BoxData[{
  RowBox[{
   RowBox[{"cutoffreq", "=", "30"}], ";"}], "\[IndentingNewLine]", 
@@ -348,7 +391,7 @@ Cell[BoxData[{
        RowBox[{"0", ",", "10"}], "}"}], ",", 
       RowBox[{"{", 
        RowBox[{
-        RowBox[{"-", "2.1"}], ",", "2.1"}], "}"}]}], "}"}]}], ",", 
+        RowBox[{"-", "0.75"}], ",", "0.75"}], "}"}]}], "}"}]}], ",", 
    RowBox[{"AxesLabel", "->", 
     RowBox[{"{", 
      RowBox[{"\"\<Time s\>\"", ",", "\"\<Acceleration\>\""}], "}"}]}], ",", 
@@ -368,9 +411,9 @@ Cell[BoxData[{
   3.917858421773522*^9, 3.917858488245912*^9}, {3.917863185757386*^9, 
   3.9178631902073097`*^9}, {3.917992681104491*^9, 3.917992687121224*^9}, {
   3.91799272107347*^9, 3.917992741581326*^9}, {3.918048134079084*^9, 
-  3.918048160314909*^9}},
- CellLabel->
-  "In[394]:=",ExpressionUUID->"3ce38bfe-6c21-4a11-85dc-bcc45782fc68"]
+  3.918048160314909*^9}, {3.918155406909581*^9, 
+  3.918155406910471*^9}},ExpressionUUID->"3ce38bfe-6c21-4a11-85dc-\
+bcc45782fc68"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -491,12 +534,22 @@ Tdwe7Eid3uMO4qCI+4K9+QVRrGx5/MQZBtasmnzRb5rH5VWH2nFyUzKQukjM
   "],
  CellLabel->
   "In[416]:=",ExpressionUUID->"213ecee1-bead-40a4-be50-026f170f8abe"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Enter notes here", "Section",
+ CellChangeTimes->{{3.918155614913148*^9, 
+  3.918155632315712*^9}},ExpressionUUID->"4ce0b484-964a-4c03-8c1d-\
+fbb14cebe2cb"],
+
+Cell["", "Text",ExpressionUUID->"c02c9f49-158c-4bee-879f-0b43a40f3603"]
 }, Open  ]]
 }, Open  ]]
 },
 WindowSize->{1344, 811},
-WindowMargins->{{30, Automatic}, {-520, Automatic}},
-FrontEndVersion->"14.0 for Mac OS X ARM (64-bit) (December 12, 2023)",
+WindowMargins->{{Automatic, -1628}, {Automatic, 13}},
+FrontEndVersion->"13.3 for Mac OS X x86 (64-bit) (June 3, 2023)",
 StyleDefinitions->"Default.nb",
 ExpressionUUID->"e237bbf0-7040-47a9-ac84-1a42b7e51735"
 ]
@@ -513,26 +566,32 @@ CellTagsIndex->{}
 Notebook[{
 Cell[CellGroupData[{
 Cell[580, 22, 246, 4, 98, "Title",ExpressionUUID->"b5225925-e106-4a46-9071-abc41fe7a3f4"],
+Cell[829, 28, 1850, 33, 334, "Text",ExpressionUUID->"e98846ae-c3bb-4773-8220-6cc023727cd5"],
 Cell[CellGroupData[{
-Cell[851, 30, 205, 4, 67, "Section",ExpressionUUID->"4d6f096b-a74f-40c1-b21b-2b955c965289"],
-Cell[1059, 36, 214, 5, 35, "Text",ExpressionUUID->"953017af-ae68-44f4-ab25-b0f29cfb484f"],
-Cell[1276, 43, 1477, 37, 115, "Input",ExpressionUUID->"48b9eed4-d723-41b9-bd9c-dcb850faf085"]
+Cell[2704, 65, 205, 4, 67, "Section",ExpressionUUID->"4d6f096b-a74f-40c1-b21b-2b955c965289"],
+Cell[2912, 71, 214, 5, 35, "Text",ExpressionUUID->"953017af-ae68-44f4-ab25-b0f29cfb484f"],
+Cell[3129, 78, 1477, 37, 115, "Input",ExpressionUUID->"48b9eed4-d723-41b9-bd9c-dcb850faf085"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2790, 85, 174, 3, 67, "Section",ExpressionUUID->"9bb4e15a-dc0e-43a9-a5f2-995cd29dd10b"],
-Cell[2967, 90, 5794, 167, 409, "Input",ExpressionUUID->"6ce75b95-04d6-4e61-bb40-b05114f10d70"]
+Cell[4643, 120, 174, 3, 67, "Section",ExpressionUUID->"9bb4e15a-dc0e-43a9-a5f2-995cd29dd10b"],
+Cell[4820, 125, 5819, 167, 409, "Input",ExpressionUUID->"6ce75b95-04d6-4e61-bb40-b05114f10d70"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[8798, 262, 222, 4, 67, "Section",ExpressionUUID->"8b580556-ca6d-4d94-874b-f3f96ce6f19b"],
-Cell[9023, 268, 903, 26, 94, "Input",ExpressionUUID->"bd4aefd7-0b65-4019-ac3c-0b853ef46fb8"]
+Cell[10676, 297, 222, 4, 67, "Section",ExpressionUUID->"8b580556-ca6d-4d94-874b-f3f96ce6f19b"],
+Cell[10901, 303, 903, 26, 94, "Input",ExpressionUUID->"bd4aefd7-0b65-4019-ac3c-0b853ef46fb8"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[9963, 299, 233, 4, 67, "Section",ExpressionUUID->"55a1696e-ffbb-48c8-b877-a2359f804686"],
-Cell[10199, 305, 2618, 67, 178, "Input",ExpressionUUID->"3ce38bfe-6c21-4a11-85dc-bcc45782fc68"]
+Cell[11841, 334, 233, 4, 67, "Section",ExpressionUUID->"55a1696e-ffbb-48c8-b877-a2359f804686"],
+Cell[12077, 340, 279, 6, 35, "Text",ExpressionUUID->"1cd4be3c-9893-405d-abe4-6145d186bb8c"],
+Cell[12359, 348, 2643, 67, 178, "Input",ExpressionUUID->"3ce38bfe-6c21-4a11-85dc-bcc45782fc68"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[12854, 377, 274, 4, 67, "Section",ExpressionUUID->"e04e3dc9-f6db-48df-a995-e08b7ca1551f"],
-Cell[13131, 383, 3602, 109, 262, "Input",ExpressionUUID->"213ecee1-bead-40a4-be50-026f170f8abe"]
+Cell[15039, 420, 274, 4, 67, "Section",ExpressionUUID->"e04e3dc9-f6db-48df-a995-e08b7ca1551f"],
+Cell[15316, 426, 3602, 109, 262, "Input",ExpressionUUID->"213ecee1-bead-40a4-be50-026f170f8abe"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[18955, 540, 161, 3, 67, "Section",ExpressionUUID->"4ce0b484-964a-4c03-8c1d-fbb14cebe2cb"],
+Cell[19119, 545, 71, 0, 35, "Text",ExpressionUUID->"c02c9f49-158c-4bee-879f-0b43a40f3603"]
 }, Open  ]]
 }, Open  ]]
 }

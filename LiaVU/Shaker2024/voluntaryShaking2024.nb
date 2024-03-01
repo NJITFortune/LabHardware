@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     25520,        709]
-NotebookOptionsPosition[     23573,        665]
-NotebookOutlinePosition[     23972,        681]
-CellTagsIndexPosition[     23929,        678]
+NotebookDataLength[     27973,        769]
+NotebookOptionsPosition[     25560,        717]
+NotebookOutlinePosition[     25955,        733]
+CellTagsIndexPosition[     25912,        730]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -25,6 +25,34 @@ Cell["Voluntary shaking analysis", "Title",
   3.9180459542217703`*^9, 3.918045957799501*^9}, {3.9180477392154284`*^9, 
   3.918047740942134*^9}},ExpressionUUID->"b5225925-e106-4a46-9071-\
 abc41fe7a3f4"],
+
+Cell["\<\
+Behavior often involves movement.  And many behaviors involve the production \
+of obvious rhythms, such as walking, taking, and chewing. The frequencies of \
+these rhythmic movements are governed by the mechanical properties of our \
+muscles and bones and by the computational properties of neural networks, but \
+are often profoundly affected by signals in our environment.
+
+This lab exercise will measure the frequency of voluntary rhythmic movements.
+
+In this exercise, you will use two pieces of music of your choice. For each \
+piece of music, you will make two measurements. First, you will play one of \
+the pieces of music and move the wand to its rhythm. Do this for both pieces. \
+ Second, you will play one of the pieces of music while moving the wand to \
+match the rhythm. Then you will stop the music while continuing to move the \
+wand at the same rhythm. After three beats, you will press the start button \
+and take a 10 second sample while continuing to move the wand at that same \
+rhythm. Finally, you will try to oscillate the wand as fast you can. Do this \
+twice.
+
+Each student should take six 10 second measurements: 1) During song one, 2) \
+After song one, 3) During song two, 4) After song two, and 5/6) Shaking as \
+fast as you can.\
+\>", "Text",
+ CellChangeTimes->{{3.918153549419541*^9, 3.9181539999614687`*^9}, {
+  3.918154039932317*^9, 
+  3.9181543325046873`*^9}},ExpressionUUID->"e52fe4a1-e21b-452f-bd89-\
+e374de1c9c4f"],
 
 Cell[CellGroupData[{
 
@@ -302,10 +330,20 @@ Cell["Lowpass filter the data and plot again", "Section",
   3.91773820822066*^9}},ExpressionUUID->"55a1696e-ffbb-48c8-b877-\
 a2359f804686"],
 
+Cell[CellGroupData[{
+
+Cell["\<\
+You will need to adjust the cutoff frequency for the filter. Usually 5 Hz for \
+music and 15 Hz for rapid shaking are good values.\
+\>", "Subsubsection",
+ CellChangeTimes->{{3.9181566136047773`*^9, 
+  3.9181566619340563`*^9}},ExpressionUUID->"8320749a-6334-4462-b5a9-\
+f23e9a63e1b5"],
+
 Cell[BoxData[{
  RowBox[{
   RowBox[{
-   RowBox[{"cutoffreq", "=", "10"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"cutoffreq", "=", "5"}], ";"}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"filtX", "=", 
@@ -328,7 +366,7 @@ Cell[BoxData[{
      RowBox[{"z", ",", 
       RowBox[{"2", " ", "\[Pi]", " ", 
        RowBox[{"cutoffreq", "/", "fs"}]}]}], "]"}]}], ";"}], 
-  "\[IndentingNewLine]"}], "\n", 
+  "\n"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"lpPlot", "=", 
    RowBox[{"ListLinePlot", "[", 
@@ -363,21 +401,15 @@ Cell[BoxData[{
         "\"\<filtZ (Face)\>\""}], "}"}]}], ",", 
      RowBox[{"GridLines", "->", "Automatic"}]}], "]"}]}], ";"}], "\n", 
  RowBox[{"Show", "[", "lpPlot", "]"}], "\[IndentingNewLine]"}], "Input",
- CellChangeTimes->{{3.917738890879554*^9, 3.9177389147583647`*^9}, {
-  3.917739162029371*^9, 3.917739183878664*^9}, {3.917773910736668*^9, 
-  3.917773925198975*^9}, {3.917773980806057*^9, 3.9177739809399033`*^9}, {
-  3.917775174757392*^9, 3.917775198704333*^9}, {3.91777523869732*^9, 
-  3.917775239013434*^9}, {3.917775313582518*^9, 3.917775332262083*^9}, {
-  3.917777504416239*^9, 3.917777505717765*^9}, {3.917858207970843*^9, 
-  3.917858243689768*^9}, {3.9178583746963987`*^9, 3.917858387372077*^9}, {
-  3.917858421773522*^9, 3.917858488245912*^9}, {3.917863185757386*^9, 
-  3.9178631902073097`*^9}, {3.917992681104491*^9, 3.917992687121224*^9}, {
-  3.91799272107347*^9, 3.917992741581326*^9}, {3.918046340260198*^9, 
-  3.918046346427054*^9}, {3.918046389766819*^9, 3.918046404768631*^9}, {
-  3.9180476507943583`*^9, 3.918047650981731*^9}, {3.9180477640615187`*^9, 
-  3.918047843089944*^9}},
- CellLabel->
-  "In[343]:=",ExpressionUUID->"3ce38bfe-6c21-4a11-85dc-bcc45782fc68"]
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGAQBmIQ7acaU1hn8NaxzSWiBETP/uAwGUSzyP2ZCqJPTrre
+1Q+kGeOW9YBoi9MzJ4PoDcLzwHSfzQ2NCUD6aec1bRBdFHDNAETz5j0A038X
+G1mB6D9JHTYg+kogr89EIP3uuxmYVhX8v3kHkJ4iVLYDRD/zuHYCRPO9yD4F
+ojce2HEORDffY78OoptsLJR2A2mPRcfA9L9w5dhfQFrw4WMwfS9SKQlEW87a
+lAKiu4M7JogYvnXMXeU7EUSf6NwxDUQvmDFjBohOyo40EQXS4VnxYPrb90Yn
+EH3pQZIPiJ5tOTHdC0hPmPcTTAMA4v2V2Q==
+  "],ExpressionUUID->"3ce38bfe-6c21-4a11-85dc-bcc45782fc68"]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -390,11 +422,21 @@ a996f0c2e04a"],
 
 Cell[CellGroupData[{
 
+Cell["\<\
+Pick the best signal from the filtered plot (one of filtX, filtY, or filtZ) \
+for sourceData.  Set the offset to a \[OpenCurlyDoubleQuote]clean\
+\[CloseCurlyDoubleQuote] level in the filtered plot.\
+\>", "Subsubsection",
+ CellChangeTimes->{{3.9181566701165323`*^9, 3.91815669166698*^9}, {
+  3.918156731401228*^9, 
+  3.9181567500761766`*^9}},ExpressionUUID->"64a309a8-b78c-41e4-b867-\
+a6674a70048e"],
+
+Cell[CellGroupData[{
+
 Cell[BoxData[{
  RowBox[{
-  RowBox[{
-   RowBox[{"sourceData", "=", "filtZ"}], ";"}], 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+  RowBox[{"sourceData", "=", "filtZ"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"offset", "=", "0.5"}], ";"}], 
@@ -409,13 +451,13 @@ Cell[BoxData[{
       RowBox[{
        RowBox[{"Differences", "[", 
         RowBox[{"Sign", "[", "zcData", "]"}], "]"}], ",", "2"}], "]"}]}]}], 
-   ";"}], "\n", "\[IndentingNewLine]", 
+   ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
   RowBox[{"(*", " ", 
    RowBox[{
    "Calculate", " ", "instantaneous", " ", "frequency", " ", "based", " ", 
     "on", " ", "number", " ", "of", " ", "samples", " ", "between", " ", 
     "consecutive", " ", "positive", " ", "zero", " ", "crossings"}], " ", 
-   "*)"}]}], "\[IndentingNewLine]", 
+   "*)"}]}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{"instFreq", "=", 
@@ -462,9 +504,9 @@ Cell[BoxData[{
           RowBox[{"positiveZeroCrossings", "[", 
            RowBox[{"[", 
             RowBox[{"2", ";;"}], "]"}], "]"}], "]"}], "]"}], ",", 
-        RowBox[{"offset", "*", 
+        RowBox[{"offset", "+", 
          RowBox[{"ConstantArray", "[", 
-          RowBox[{"1", ",", 
+          RowBox[{"0", ",", 
            RowBox[{"Length", "[", "instFreq", "]"}]}], "]"}]}]}], "}"}], 
       "]"}], ",", 
      RowBox[{"PlotStyle", "->", 
@@ -505,7 +547,7 @@ Cell[BoxData[{
         RowBox[{"0", ",", "10"}], "}"}], ",", 
        RowBox[{"{", 
         RowBox[{"0", ",", "cutoffreq"}], "}"}]}], "}"}]}]}], "]"}], 
-  "\[IndentingNewLine]", "\n"}], "\[IndentingNewLine]"}], "Input",
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\n"}], "Input",
  CellChangeTimes->{{3.917628563116309*^9, 3.917628650048399*^9}, {
    3.917698093497809*^9, 3.917698125673086*^9}, {3.9177347663003*^9, 
    3.917734816178474*^9}, {3.91773746000743*^9, 3.917737460313081*^9}, {
@@ -525,9 +567,10 @@ Cell[BoxData[{
    3.918047291082631*^9, 3.9180472975880947`*^9}, {3.918047438748418*^9, 
    3.9180475631670847`*^9}, {3.918047683651601*^9, 3.9180476966391993`*^9}, {
    3.91804786188548*^9, 3.918047865358974*^9}, {3.918047938030293*^9, 
-   3.918047940420413*^9}},
- CellLabel->
-  "In[358]:=",ExpressionUUID->"f8c93706-479e-4a25-aa1b-d43451acd559"],
+   3.918047940420413*^9}, {3.9181565803745937`*^9, 3.918156585042275*^9}, {
+   3.9181567050577307`*^9, 
+   3.9181567290962267`*^9}},ExpressionUUID->"f07df00d-219f-4673-ab27-\
+226ad472f0f3"],
 
 Cell[BoxData["\<\"The median instantaneous frequency is 4.13251 Hz.\"\>"], \
 "Print",
@@ -541,6 +584,7 @@ Cell[BoxData["\<\"The median instantaneous frequency is 4.13251 Hz.\"\>"], \
  CellLabel->
   "During evaluation of \
 In[358]:=",ExpressionUUID->"1c2acbc6-ebba-43d8-9895-912d4791fdc6"]
+}, Open  ]]
 }, Open  ]]
 }, Open  ]],
 
@@ -659,13 +703,21 @@ SLOtWA2mJXK07+4A0oaOux+C6MO9Fiq7gfSs586qIFqI8djDL0C6aGPLKxC9
 YOnLdyB60s9/70H0S/fnn0F0qwPjfxANAIYYs/U=
   "],
  CellLabel->
-  "In[329]:=",ExpressionUUID->"213ecee1-bead-40a4-be50-026f170f8abe"]
+  "In[329]:=",ExpressionUUID->"213ecee1-bead-40a4-be50-026f170f8abe"],
+
+Cell["\<\
+Report mean frequency and any trend in the zero-crossing data.  What are your \
+observations and thoughts?\
+\>", "Subsubsection",
+ CellChangeTimes->{{3.918156761719557*^9, 
+  3.918156795694014*^9}},ExpressionUUID->"9c0cce6f-7484-4a98-851a-\
+a42dd42225b6"]
 }, Open  ]]
 }, Open  ]]
 },
 WindowSize->{1321, 847},
-WindowMargins->{{Automatic, 39}, {Automatic, 540}},
-FrontEndVersion->"14.0 for Mac OS X ARM (64-bit) (December 12, 2023)",
+WindowMargins->{{374, Automatic}, {Automatic, 217}},
+FrontEndVersion->"13.3 for Mac OS X x86 (64-bit) (June 3, 2023)",
 StyleDefinitions->"Default.nb",
 ExpressionUUID->"016d8fc9-52b5-44c2-97fd-0c34aa1a57a0"
 ]
@@ -682,33 +734,41 @@ CellTagsIndex->{}
 Notebook[{
 Cell[CellGroupData[{
 Cell[580, 22, 268, 4, 98, "Title",ExpressionUUID->"b5225925-e106-4a46-9071-abc41fe7a3f4"],
+Cell[851, 28, 1462, 26, 265, "Text",ExpressionUUID->"e52fe4a1-e21b-452f-bd89-e374de1c9c4f"],
 Cell[CellGroupData[{
-Cell[873, 30, 205, 4, 67, "Section",ExpressionUUID->"4d6f096b-a74f-40c1-b21b-2b955c965289"],
-Cell[1081, 36, 237, 5, 35, "Text",ExpressionUUID->"953017af-ae68-44f4-ab25-b0f29cfb484f"],
-Cell[1321, 43, 1477, 37, 115, "Input",ExpressionUUID->"48b9eed4-d723-41b9-bd9c-dcb850faf085"]
+Cell[2338, 58, 205, 4, 67, "Section",ExpressionUUID->"4d6f096b-a74f-40c1-b21b-2b955c965289"],
+Cell[2546, 64, 237, 5, 35, "Text",ExpressionUUID->"953017af-ae68-44f4-ab25-b0f29cfb484f"],
+Cell[2786, 71, 1477, 37, 115, "Input",ExpressionUUID->"48b9eed4-d723-41b9-bd9c-dcb850faf085"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2835, 85, 174, 3, 67, "Section",ExpressionUUID->"9bb4e15a-dc0e-43a9-a5f2-995cd29dd10b"],
-Cell[3012, 90, 5794, 167, 409, "Input",ExpressionUUID->"6ce75b95-04d6-4e61-bb40-b05114f10d70"]
+Cell[4300, 113, 174, 3, 67, "Section",ExpressionUUID->"9bb4e15a-dc0e-43a9-a5f2-995cd29dd10b"],
+Cell[4477, 118, 5794, 167, 409, "Input",ExpressionUUID->"6ce75b95-04d6-4e61-bb40-b05114f10d70"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[8843, 262, 224, 4, 67, "Section",ExpressionUUID->"8b580556-ca6d-4d94-874b-f3f96ce6f19b"],
-Cell[9070, 268, 903, 26, 94, "Input",ExpressionUUID->"bd4aefd7-0b65-4019-ac3c-0b853ef46fb8"]
+Cell[10308, 290, 224, 4, 67, "Section",ExpressionUUID->"8b580556-ca6d-4d94-874b-f3f96ce6f19b"],
+Cell[10535, 296, 903, 26, 94, "Input",ExpressionUUID->"bd4aefd7-0b65-4019-ac3c-0b853ef46fb8"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[10010, 299, 182, 3, 67, "Section",ExpressionUUID->"55a1696e-ffbb-48c8-b877-a2359f804686"],
-Cell[10195, 304, 3002, 75, 241, "Input",ExpressionUUID->"3ce38bfe-6c21-4a11-85dc-bcc45782fc68"]
-}, Open  ]],
+Cell[11475, 327, 182, 3, 67, "Section",ExpressionUUID->"55a1696e-ffbb-48c8-b877-a2359f804686"],
 Cell[CellGroupData[{
-Cell[13234, 384, 229, 4, 67, "Section",ExpressionUUID->"9def3a75-eb9f-42a7-ba9b-a996f0c2e04a"],
-Cell[CellGroupData[{
-Cell[13488, 392, 5528, 137, 430, "Input",ExpressionUUID->"f8c93706-479e-4a25-aa1b-d43451acd559"],
-Cell[19019, 531, 650, 11, 24, "Print",ExpressionUUID->"1c2acbc6-ebba-43d8-9895-912d4791fdc6"]
+Cell[11682, 334, 293, 6, 45, "Subsubsection",ExpressionUUID->"8320749a-6334-4462-b5a9-f23e9a63e1b5"],
+Cell[11978, 342, 2441, 68, 220, "Input",ExpressionUUID->"3ce38bfe-6c21-4a11-85dc-bcc45782fc68"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[19718, 548, 274, 4, 67, "Section",ExpressionUUID->"e04e3dc9-f6db-48df-a995-e08b7ca1551f"],
-Cell[19995, 554, 3550, 107, 262, "Input",ExpressionUUID->"213ecee1-bead-40a4-be50-026f170f8abe"]
+Cell[14468, 416, 229, 4, 67, "Section",ExpressionUUID->"9def3a75-eb9f-42a7-ba9b-a996f0c2e04a"],
+Cell[CellGroupData[{
+Cell[14722, 424, 408, 8, 45, "Subsubsection",ExpressionUUID->"64a309a8-b78c-41e4-b867-a6674a70048e"],
+Cell[CellGroupData[{
+Cell[15155, 436, 5568, 136, 409, "Input",ExpressionUUID->"f07df00d-219f-4673-ab27-226ad472f0f3"],
+Cell[20726, 574, 650, 11, 24, "Print",ExpressionUUID->"1c2acbc6-ebba-43d8-9895-912d4791fdc6"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[21437, 592, 274, 4, 67, "Section",ExpressionUUID->"e04e3dc9-f6db-48df-a995-e08b7ca1551f"],
+Cell[21714, 598, 3550, 107, 262, "Input",ExpressionUUID->"213ecee1-bead-40a4-be50-026f170f8abe"],
+Cell[25267, 707, 265, 6, 45, "Subsubsection",ExpressionUUID->"9c0cce6f-7484-4a98-851a-a42dd42225b6"]
 }, Open  ]]
 }, Open  ]]
 }
