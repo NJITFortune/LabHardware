@@ -8,10 +8,14 @@ function theSoundBoxer(a, Fs, filepath, filename)
 % % [a,Fs] = audioread('/Volumes/Extreme SSD/WaponiData/Campinarana 2 canopy/Data/CAMPINARANA2_20231213_212000.wav');
 % [a,Fs] = audioread('/Volumes/Extreme SSD/WaponiData/Campinarana 2 canopy/Data/CAMPINARANA2_20231213_230600.wav');
 
-cutOffFreq = 3000;
+%     cutOffFreq = 5000;
+%     [bb,aa] = butter(9, cutOffFreq / (Fs/2), 'low'); % Strong lowpass filter
+%     c = filtfilt(bb,aa,a); % This is the filtering step
 
-    [bb,aa] = butter(9, cutOffFreq / (Fs/2), 'low'); % Strong lowpass filter
+    cutOffFreqs = [20000, 50000];
+    [bb,aa] = butter(9, [cutOffFreqs(1)/(Fs/2), cutOffFreqs(2)/(Fs/2)], 'bandpass'); % Strong lowpass filter
     c = filtfilt(bb,aa,a); % This is the filtering step
+
 
     rc = c(1:2:end); % Half the sample rate
     fFs = Fs/2; % This is the reduced sample rate (should be an integer!)
@@ -51,8 +55,8 @@ baseFreq = ptm.fftfreq; % These are our frequencies
 multiThresh = 3; % How many times the amplitude of the baseline?
 
 % We only do this over our frequency range of interest.
-lowestFreq = 20;
-highestFreq = 3000;
+lowestFreq = 10000;
+highestFreq = 30000;
 numWindowsAboveThresh = 20; % This is a minimum spectrum above the threshold
 
 ff = find(baseFreq > lowestFreq & baseFreq < highestFreq); % Select our frequency range (indices)
@@ -81,7 +85,7 @@ freqRange = flip(freqRange);
 
 figure(2); clf; 
     set(gcf, "Position", [500 700 1400 600]);
-    specgram(rc, 1024, fFs, [], 1000); colormap('HOT'); clim([-40 10]); ylim([0 3500]);
+    specgram(rc, 1024, fFs, [], 1000); colormap('HOT'); ylim([lowestFreq highestFreq]);
     hold on; 
     % for j=1:length(freqRange) 
     %     plot([startTim(listofwinners(j)) startTim(listofwinners(j))], [freqRange{j}], 'g', 'LineWidth', 4); 
