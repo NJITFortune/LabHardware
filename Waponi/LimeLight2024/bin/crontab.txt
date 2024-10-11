@@ -1,0 +1,3 @@
+*/1 * * * * /home/arducam/bin/dataAudioStudioGPS.py >> /home/arducam/data/errorlog.txt 2>&1
+*/1 * * * * sleep 30; /home/arducam/bin/dataStudio.py >> /home/arducam/data/errorlog.txt 2>&1
+
