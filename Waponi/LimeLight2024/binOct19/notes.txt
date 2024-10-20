@@ -1,0 +1,4 @@
+# local display on RPi HDMI in an ssh shell
+sudo fbi --autozoom --noverbose --vt 1 test.png
+
+

@@ -5,18 +5,14 @@ import time
 import os
 import subprocess
 
-
 # Define source and destination paths
 SOURCE_DIR = '/home/arducam/data'
 DESTINATION_DIR = '/mnt/usb'  # Update with your USB drive mount point
 usb_device = '/dev/sda'
-datadir = '/home/arducam/curdat'  # Modify this if your directory is different
+datadir = '/home/arducam/data'  # Modify this if your directory is different
 usbdrive = '/mnt/usb'  # Update this to match your USB mount point
 
-
-
 file2CheckPathName = '/home/arducam/FileCopyInitiated.txt'
-
 
 print(f"Touching control file.")
 f = open(file2CheckPathName, 'w')
@@ -72,10 +68,11 @@ def copy_files_to_usb():
 
     while not is_drive_mounted(usb_device):
         sudo_mount()
-        time.sleep(1)  # Wait 1 second before checking again
+        processFast = subprocess.Popen(['python3', '/home/arducam/bin/fastBlink.py'])
+        time.sleep(11)  # Wait 11 seconds before checking again
         print(f"Waiting for {usb_device} to be mounted...")
 
-    # Loop through files in the Pictures directory and copy to USB
+    # Loop through files in the source data directory and copy to USB
     print(f"Device {usb_device} is mounted, copying files")
     for filename in os.listdir(datadir):
         source_file = os.path.join(datadir, filename)
@@ -84,11 +81,24 @@ def copy_files_to_usb():
         try:
             if os.path.isfile(source_file):
                 shutil.copy2(source_file, destination_file)  # Copy with metadata
-                print(f"Copied {filename} to USB.")
+                print(f"Copying file {filename} to USB.")
+            if os.path.isdir(source_file):
+                # Recursively copy directories
+                shutil.copytree(source_file, destination_file, dirs_exist_ok=True)
+                print(f"Copying directory {filename} to USB.")
+
         except Exception as e:
             print(f"Error copying {filename}: {e}")
-
+    print(f"Syncing data to USB.")
+    fastBlinking = subprocess.Popen(['python3', '/home/arducam/bin/fastBlinking.py'])
+    os.sync()
+    fastBlinking.kill()
+    time.sleep(2)
+    forceOff = subprocess.Popen(['python3', '/home/arducam/bin/led12off.py'])
+    time.sleep(1)
+    forceOff.kill()
     print(f"Copy complete, waiting 5 seconds.")
+    processHz = subprocess.Popen(['python3', '/home/arducam/bin/HzBlink.py'])
     time.sleep(5)
     sudo_umount()
     print(f"Removing file.")
