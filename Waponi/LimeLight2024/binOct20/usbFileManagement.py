@@ -36,7 +36,7 @@ def is_drive_mounted(device):
                 return True
     return False
 
-################### Check if USB is mounted
+################### Check if USB has sufficient space
 def is_enough_space():
     """Check if USB has sufficient space."""
     enoughSpace = subprocess.run([checkUSBcopy])
