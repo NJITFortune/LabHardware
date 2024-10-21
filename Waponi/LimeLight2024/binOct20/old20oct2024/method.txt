@@ -1,0 +1,38 @@
+
+DATA COLLECTION
+
+	Check switch status - if open, initiate audio, run camera algorithm
+
+	Camera algorithm
+		If collection time, switch studio lights on, take photo, switch attractors on / studio off.
+		If 10 minutes past collection time, switch all lights off.
+
+	Check switch status - closed, turn off attractors / studio lights
+
+
+DATA TRANSFER
+
+	Check switch status - if open, do nothing, close indicator LED.
+
+	Check switch status - if closed, initiate transfer algorithm
+
+	Transfer algorithm
+		Initiate blinking LED and wait for 30 seconds.
+
+		Start WiFi, docker web service, Web page
+
+		Check for disk drive
+			If not, blink LED different
+			recheck every 10 seconds
+			If yes, mount disk drive
+		Check for sufficient disk space
+			If no, unmount drive and blink LED different
+			If yes, start data transfer
+		Check data transfer success
+			If no, blink LED different, unmount disk, return to Check for disk drive
+			If yes, initiate 'cleanup'
+		Check internal disk space
+			If sufficient, mv data to backup area
+			If insufficient, delete the oldest backup and mv data to backup area
+		Change LED to closing pattern, unmount USB, turn off WiFi and web services
+		
