@@ -1,0 +1,2 @@
+请备份所有文件到你的电脑，只保留一个gcode文件在TF卡的根目录。
+Back up all the files to your computer and save only one gcode file in the root directory.

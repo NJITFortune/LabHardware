@@ -1,0 +1,3 @@
+If you use Win7 system and the corresponding COM port of the engraving machine cannot be identify automatically, please unzip the package and install the driver in the device manager manually.
+
+如果您使用Win7系统，电脑不能自动识别雕刻机对应COM口，请解压压缩包，在设备管理器中手动安装驱动。
