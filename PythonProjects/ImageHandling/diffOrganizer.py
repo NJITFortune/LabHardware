@@ -9,7 +9,7 @@ from PIL.ExifTags import TAGS
 ##########################################
 # Define the start time (modify as needed)
 START_TIME = datetime.datetime(2020, 1, 1, 0, 0, 0)
-THRESHOLD = 15  # 15 seconds in 1 s resolution
+THRESHOLD = 12  # 15 seconds in 1 s resolution
 
 ##########################################
 # Extract EXIF data
