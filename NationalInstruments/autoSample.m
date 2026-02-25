@@ -3,14 +3,12 @@
 %% USER SETTINGS
 
 deviceID = "Dev1";
-sampleRate = 10000;           % 10 kHz
-recordDuration = 300;         % 5 minutes (seconds)
-repeatInterval = 1800;        % 30 minutes (seconds)
+sampleRate = 10000;          % 10 kHz
+recordDuration = 300;        % 5 minutes (sec)
+repeatInterval = 1800;       % 30 minutes (sec)
+outputFolder = "D:\DAQ_Data";  % CHANGE THIS
 
-outputFolder = "C:\Users\lab\data"; 
-
-% ----- USER CHANNEL NAMES (edit as needed) -----
-channelIDs   = 0:15;  % Up to 16 channels
+channelIDs   = 0:15;
 
 channelNames = { ...
     'EOD1','EOD2','Stim','Ref',...
@@ -18,7 +16,7 @@ channelNames = { ...
     'Ch9','Ch10','Ch11','Ch12',...
     'Ch13','Ch14','Ch15','Ch16'};
 
-%% Create DataAcquisition Object
+%% Create DAQ Object
 dq = daq("ni");
 dq.Rate = sampleRate;
 
@@ -27,66 +25,29 @@ for k = 1:length(channelIDs)
     ch.Name = channelNames{k};
 end
 
-fprintf("DAQ ready. Waiting to start...\n");
+fprintf("DAQ ready.\n");
 
-%% Main Loop
+%% Continuous 30-minute cycle loop
 while true
 
     startTime = datetime("now");
-    filename = datestr(startTime, 'yyyy-mm-dd_HH-MM-SS');
+    filename = datestr(startTime,'yyyy-mm-dd_HH-MM-SS');
     fullpath = fullfile(outputFolder, filename + ".mat");
 
-    fprintf("Starting recording: %s\n", filename);
+    fprintf("Recording started: %s\n", filename);
 
-    % Create writable MAT file
-    m = matfile(fullpath, 'Writable', true);
+    % ---- Acquire full 5-minute block ----
+    data = read(dq, seconds(recordDuration), ...
+                "OutputFormat","Matrix");
 
-    totalSamples = sampleRate * recordDuration;
-    chunkSize = sampleRate;  % write 1-second chunks
-    samplesWritten = 0;
+    % ---- Save file ----
+    save(fullpath, "data", "sampleRate", ...
+         "channelNames", "startTime", "-v7.3");
 
-    % Preallocate on disk
-    m.data(totalSamples, length(channelIDs)) = 0;
+    fprintf("Recording saved: %s\n", filename);
 
-    lh = addlistener(dq, "DataAvailable", @(src,event) writeChunk(event));
-
-    start(dq, "continuous");
-
-    tic;
-    while toc < recordDuration
-        pause(0.5);
-    end
-
-    stop(dq);
-    delete(lh);
-
-    fprintf("Finished recording: %s\n", filename);
-
-    % Wait remaining time to reach 30 minutes
+    % ---- Wait remaining time to reach 30 min ----
     elapsed = seconds(datetime("now") - startTime);
     pause(max(0, repeatInterval - elapsed));
 
-end
-
-%% Data Writing Function
-function writeChunk(event)
-    persistent idx mfile totalSamplesLocal
-
-    if isempty(idx)
-        idx = 1;
-        mfile = evalin('base', 'm');
-        totalSamplesLocal = evalin('base', 'totalSamples');
-    end
-
-    newData = event.Data;
-    n = size(newData,1);
-
-    if idx + n - 1 <= totalSamplesLocal
-        mfile.data(idx:idx+n-1, :) = newData;
-        idx = idx + n;
-    end
-
-    if idx > totalSamplesLocal
-        idx = [];
-    end
 end
