@@ -1,0 +1,93 @@
+Var port%:=3; ' Change to Match Port Number from CME2
+var baud%:=115200; ' 115200 57600
+var bits%:=8;
+var par%:=0;
+var stop%:=1;
+Var hsk%:=0;
+Var List%:=1;
+
+'' Control values - change these for correct performance
+Var scal$:="s r0x19 36000\n";    ' Scaling in counts per 10V 360000
+Var mvel$:="s r0xcb 400000\n";        ' Max velocity, counts per second
+Var macc$:="s r0xcc 1500000\n";        ' Max acceleration, counts per second
+Var mdec$:="s r0xcd 1500000\n";        ' Max deceleration, counts per second
+Var mdead$:="s r0x26 10\n";                                  ' Deadband in mV
+'Var vel$:="s r0x33 16384\n";        ' Max deceleration, counts per second
+'Var acc$:="s r0x34 0\n";        ' Max deceleration, counts per second
+Var gainmult$:="s r0xe3 5\n";        ' 100 is unity gain, don't know why 5 works better (less shaking) (DEFAULT IS 100)
+
+'' Set commands 
+Var apos$:="s r0x24 22\n";      ' 22 is Analog Position mode
+Var stp$:="s r0x24 0\n";            ' stops the device
+Var pstart$:="t 1\n";               ' Start program
+Var pendd$:="t 0\n";                ' Stop program
+'Var deadband$:="s r0x26 100\n"; ' Deaband in mV
+
+'' Read commands
+Var homeread$:="g r0x32\n"; 'read current location at home
+Var readacc$:="g r0xcc\n";
+
+'' General variables
+Var err%;
+Var ok%;
+Var in$;
+
+'Yield(1); ' Breathe for a second...
+
+'' MAIN
+
+'' Open the Serial Port (need to have already made contact via CME2 prior to running this script.
+err%:=SerialOpen(port%, baud%, bits%, par%, stop%, hsk%);
+
+err%:=SerialWrite(port%, scal$); ' Set the scale
+    err%:=SerialRead(port%, in$);
+    'Message(Print$("Scale is %s ", in$));
+
+err%:=SerialWrite(port%, gainmult$); ' Set the gain multiplier
+    err%:=SerialRead(port%, in$);
+    'Message(Print$("Scale is %s ", in$));
+
+err%:=SerialWrite(port%, mdead$); ' Set the deadband
+    err%:=SerialRead(port%, in$);
+    'Message(Print$("Scale is %s ", in$));
+
+err%:=SerialWrite(port%, mvel$); ' Set the maximum velocity
+    err%:=SerialRead(port%, in$);
+    'Message(Print$("mvel is %s ", in$));
+
+err%:=SerialWrite(port%, macc$); ' Set the maximum acceleration
+    err%:=SerialRead(port%, in$);
+    'Message(Print$("macc is %s ", in$));
+
+err%:=SerialWrite(port%, mdec$); ' Set the maximum deceleration
+    err%:=SerialRead(port%, in$);
+    'Message(Print$("dec is %s ", in$));
+
+err%:=SerialWrite(port%, apos$); ' Set position mode
+    err%:=SerialRead(port%, in$);
+    'Message(Print$("apos is %s ", in$));
+
+err%:=SerialWrite(port%, pstart$); ' Start the program
+    err%:=SerialRead(port%, in$);
+    'Message(Print$("pstart is %s ", in$));
+
+'err%:=SerialWrite(port%, readacc$);
+'    err%:=SerialRead(port%, in$);
+    Message(Print$("Actuator is running: %s ", in$));
+
+
+' Play your waveforms
+' Yield(10);
+
+
+
+
+
+' Stop the actuator and release (allows prepositioning
+'err%:=SerialWrite(port%, stp$);
+'     err%:=SerialRead(port%, in$);
+'     Message(Print$("Stopped the Device = %s ", in$));
+
+
+'' Close the serial port
+SerialClose(port%);
