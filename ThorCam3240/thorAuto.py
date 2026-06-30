@@ -2,7 +2,8 @@
 
 ### #!/usr/bin/env python3
 """
-thorTrig.py — Thorlabs UI-3240CP external-trigger capture at maximum framerate.
+thorAuto.py — Thorlabs UI-3240CP internal-trigger (free-running) capture at
+a user-specified framerate.
 Requires: IDS uEye SDK (Linux/Windows/macOS) + pip install pyueye numpy opencv-python
 """
 
@@ -77,7 +78,7 @@ def _report_stats(hw_ts, frame_nums):
     dropped = sum(frame_nums[i+1] - frame_nums[i] - 1 for i in range(n - 1))
 
     print(f"\n--- Capture statistics (camera hardware timestamps) ---")
-    print(f"Frames captured  : {n}  |  Dropped triggers: {dropped}")
+    print(f"Frames captured  : {n}  |  Dropped frames: {dropped}")
     print(f"Mean frame period: {mean:.3f} ms  ({1000/mean:.2f} fps)")
     print(f"Jitter (1σ)      : ±{std:.3f} ms")
     print(f"Min / Max period : {min(intervals):.3f} / {max(intervals):.3f} ms")
@@ -102,7 +103,7 @@ class UI3240CP:
         self.bpp    = 8
         self._bufs  = []  # (ptr, id) pairs for ring buffer
 
-    def open(self, roi=None, color=False, trigger_edge="rising", num_buffers=8, fps=None):
+    def open(self, roi=None, color=False, num_buffers=8, fps=10.0):
         ids = enumerate_cameras()
         if not ids:
             raise RuntimeError(
@@ -112,9 +113,7 @@ class UI3240CP:
             raise RuntimeError(
                 f"--cam-id {self._cam_id} is out of range — "
                 f"only {len(ids)} camera(s) detected (0–{len(ids)-1}).")
-        dev_id = ids[self._cam_id]      # resolve list index → dwDeviceID
-        # IS_USE_DEVICE_ID tells the SDK to open by device ID, not the
-        # user-configurable camera ID (which may not be unique across cameras)
+        dev_id = ids[self._cam_id]
         self.hCam = ueye.HIDS(dev_id | ueye.IS_USE_DEVICE_ID)
         ret = ueye.is_InitCamera(self.hCam, None)
         if ret != ueye.IS_SUCCESS:
@@ -163,15 +162,11 @@ class UI3240CP:
             self.width  = int(sinfo.nMaxWidth)
             self.height = int(sinfo.nMaxHeight)
 
-        # Framerate — controls the frame period, which caps maximum exposure.
-        # Pass a high value to let the SDK pick its hardware maximum.
-        # Lower values widen the exposure window at the cost of max trigger rate.
+        # Set the requested framerate
         actual_fps = ueye.double()
         check(ueye.is_SetFrameRate(
-            self.hCam, ueye.double(fps if fps is not None else 10000.0), actual_fps),
-            "SetFrameRate")
-        print(f"Framerate   : {float(actual_fps):.1f} fps"
-              f"{' (max)' if fps is None else ''}")
+            self.hCam, ueye.double(fps), actual_fps), "SetFrameRate")
+        print(f"Framerate   : {float(actual_fps):.1f} fps")
 
         # Query and report exposure range
         exp_min = ueye.double()
@@ -185,8 +180,7 @@ class UI3240CP:
         print(f"Exposure range: {float(exp_min):.4f} – {float(exp_max):.4f} ms "
               f"(use --exposure to set)")
 
-        # Ring buffer — lets the camera accept the next trigger while the CPU
-        # is still copying the previous frame
+        # Ring buffer
         self._bufs = []
         for _ in range(num_buffers):
             ptr = ueye.c_mem_p()
@@ -199,26 +193,24 @@ class UI3240CP:
         check(ueye.is_ImageQueue(
             self.hCam, ueye.IS_IMAGE_QUEUE_CMD_INIT, None, 0), "ImageQueue INIT")
 
-        # External trigger
-        edge = ueye.IS_SET_TRIGGER_LO_HI if trigger_edge == "rising" \
-               else ueye.IS_SET_TRIGGER_HI_LO
-        check(ueye.is_SetExternalTrigger(self.hCam, edge), "SetExternalTrigger")
+        # Internal (free-running) trigger — camera generates frames at the set rate
+        check(ueye.is_SetExternalTrigger(
+            self.hCam, ueye.IS_SET_TRIGGER_OFF), "SetExternalTrigger OFF")
 
-        # Arm the capture engine once; each trigger fills the next ring buffer slot
+        # Arm the capture engine
         check(ueye.is_CaptureVideo(self.hCam, ueye.IS_DONT_WAIT), "CaptureVideo")
 
-        print(f"Trigger edge: {trigger_edge}")
+        print(f"Trigger     : internal (free-running)")
         print(f"Resolution  : {self.width}x{self.height} "
               f"({'color' if color else 'mono'})")
         print(f"Ring buffers: {num_buffers}")
-        print("Ready — waiting for external triggers.")
+        print("Ready — capturing.")
 
     def capture(self, timeout_ms=5000):
-        """Return (image, hw_timestamp_100ns, frame_number) for the next trigger.
+        """Return (image, hw_timestamp_100ns, frame_number) for the next frame.
 
-        hw_timestamp is the camera's internal hardware counter in 100 ns units,
-        stamped at capture time before USB transfer — use it for accurate timing.
-        Raises TimeoutError if no trigger arrives within timeout_ms.
+        hw_timestamp is the camera's internal hardware counter in 100 ns units.
+        Raises TimeoutError if no frame arrives within timeout_ms.
         """
         img_ptr = ueye.c_char_p()
         img_id  = ueye.c_int()
@@ -230,11 +222,8 @@ class UI3240CP:
             self.hCam, ueye.IS_IMAGE_QUEUE_CMD_WAIT,
             wait_buf, ctypes.sizeof(ueye.IMAGEQUEUEWAITBUFFER))
         if ret == ueye.IS_TIMED_OUT:
-            raise TimeoutError(f"No trigger received within {timeout_ms} ms")
+            raise TimeoutError(f"No frame received within {timeout_ms} ms")
         if ret == ueye.IS_IMAGE_QUEUE_CMD_CANCEL_WAIT:
-            # All ring buffer slots were occupied — the SDK cancelled the wait
-            # rather than block.  Discard stale locks, re-arm, and signal the
-            # caller to retry (same path as a normal timeout).
             ueye.is_ImageQueue(self.hCam, ueye.IS_IMAGE_QUEUE_CMD_FLUSH, None, 0)
             ueye.is_CaptureVideo(self.hCam, ueye.IS_DONT_WAIT)
             raise TimeoutError("image queue cancelled — flushed and re-armed")
@@ -294,33 +283,27 @@ def parse_roi(s):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Capture triggered frames from a Thorlabs UI-3240CP (IDS uEye).")
+        description="Capture N frames from a Thorlabs UI-3240CP using the "
+                    "internal (free-running) trigger at a specified FPS.")
     parser.add_argument("-n", "--num-frames", type=int, default=10,
                         help="Number of frames to capture (default: 10)")
+    parser.add_argument("--fps", type=float, default=10.0,
+                        help="Capture framerate in fps (default: 10.0)")
     parser.add_argument("-o", "--output-dir", default=".",
                         help="Directory to save frames (default: current dir)")
     parser.add_argument("--cam-id", type=int, default=0,
                         help="Camera ID (default: 0)")
     parser.add_argument("--roi", type=parse_roi, default=None,
                         metavar="x,y,w,h",
-                        help="Region of interest — smaller ROI → higher trigger rate")
+                        help="Region of interest")
     parser.add_argument("--color", action="store_true",
-                        help="Capture in BGR color (default: mono8 for max speed)")
-    parser.add_argument("--edge", choices=["rising", "falling"], default="rising",
-                        help="Trigger edge (default: rising)")
+                        help="Capture in BGR color (default: mono8)")
     parser.add_argument("--exposure", type=float, default=None,
-                        help="Exposure in ms (default: SDK default ~5 ms)")
+                        help="Exposure in ms (default: SDK default)")
     parser.add_argument("--gain", type=int, default=0,
                         help="Master hardware gain 0-100 (default: 0)")
-    parser.add_argument("--fps", type=float, default=None,
-                        help="Internal framerate limit (default: hardware max). "
-                             "Lower values allow longer exposures — e.g. --fps 30 "
-                             "allows up to ~33 ms exposure regardless of ROI.")
     parser.add_argument("--buffers", type=int, default=8,
-                        help="Ring buffer count (default: 8); increase if triggers "
-                             "arrive faster than frames can be copied")
-    parser.add_argument("--timeout", type=int, default=5000,
-                        help="Per-frame trigger timeout in ms (default: 5000)")
+                        help="Ring buffer count (default: 8)")
     parser.add_argument("--format", choices=["tiff", "png", "bmp"], default="tiff",
                         help="Output image format (default: tiff)")
     parser.add_argument("--list-cameras", action="store_true",
@@ -331,20 +314,20 @@ def main():
         enumerate_cameras()
         sys.exit(0)
 
+    # Allow 3 missed frames worth of time before declaring a stall
+    timeout_ms = max(5000, int(3000.0 / args.fps))
+
     os.makedirs(args.output_dir, exist_ok=True)
 
-    # The internal frame rate sets the frame-period ceiling for exposure.
-    # If the user requests a long exposure but no --fps, auto-compute a frame
-    # rate that gives 10% headroom above the requested exposure time.
-    open_fps = args.fps
-    if args.exposure is not None and args.fps is None:
-        open_fps = 1000.0 / (args.exposure * 1.10)
-        print(f"Note: --fps not set; using {open_fps:.1f} fps to allow "
-              f"{args.exposure} ms exposure (fps = 1000 / (exposure × 1.10))")
+    # In free-running mode fps directly controls both frame rate AND the
+    # exposure ceiling.  Warn if the requested exposure exceeds one frame period.
+    if args.exposure is not None and args.exposure >= 1000.0 / args.fps:
+        print(f"Warning: --exposure {args.exposure} ms ≥ frame period "
+              f"{1000.0/args.fps:.1f} ms at --fps {args.fps}.  "
+              f"SDK will clamp exposure.  Consider lowering --fps.")
 
     cam = UI3240CP(cam_id=args.cam_id)
-    cam.open(roi=args.roi, color=args.color, trigger_edge=args.edge,
-             num_buffers=args.buffers, fps=open_fps)
+    cam.open(roi=args.roi, color=args.color, num_buffers=args.buffers, fps=args.fps)
 
     cam.set_gain(args.gain)
     print(f"Master gain : {args.gain}")
@@ -362,12 +345,12 @@ def main():
     writer = Thread(target=_writer_thread, args=(write_q,), daemon=True)
     writer.start()
 
-    hw_ts     = []
+    hw_ts      = []
     frame_nums = []
-    captured  = 0
+    captured   = 0
     try:
         for i in range(args.num_frames):
-            frame, ts, fnum = cam.capture(timeout_ms=args.timeout)
+            frame, ts, fnum = cam.capture(timeout_ms=timeout_ms)
             hw_ts.append(ts)
             frame_nums.append(fnum)
             path = os.path.join(args.output_dir, f"frame_{i:04d}.{args.format}")
